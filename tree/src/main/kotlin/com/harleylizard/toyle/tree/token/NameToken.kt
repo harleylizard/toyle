@@ -1,4 +1,5 @@
 package com.harleylizard.toyle.tree.token
 
-class NameToken : Token {
+class NameToken(private val name: String) : Token {
+
 }
