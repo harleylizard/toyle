@@ -1,12 +1,10 @@
 package com.harleylizard.toyle.tree.token
 
 class KeywordToken(private val keyword: Keyword) : Token {
+    override val asString: String get() = throw UnsupportedOperationException()
 
     override fun equals(other: Any?): Boolean {
-        if (other is KeywordToken) {
-            return other.keyword == keyword
-        }
-        return super.equals(other)
+        return if (other is KeywordToken) other.keyword == keyword else super.equals(other)
     }
 
     override fun hashCode(): Int {

@@ -1,8 +1,9 @@
 package com.harleylizard.toyle.tree.token
 
+import java.util.Collections
 import kotlin.reflect.KClass
 
-class Tokens(private val tokens: List<Token>) {
+class Tokens private constructor(private val tokens: List<Token>) {
     private var current = 0
 
     fun skip(i: Int) {
@@ -37,5 +38,11 @@ class Tokens(private val tokens: List<Token>) {
 
     private fun error() {
         throw RuntimeException("Invalid token")
+    }
+
+    companion object {
+        val empty = Tokens(emptyList())
+
+        fun tokensOf(list: List<Token>) = Tokens(Collections.unmodifiableList(list))
     }
 }
