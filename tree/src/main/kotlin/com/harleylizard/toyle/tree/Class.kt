@@ -18,7 +18,7 @@ class Class : Tree {
         val className = tokens.get<NameToken>()
 
         val access = Opcodes.ACC_PUBLIC or Opcodes.ACC_FINAL
-        writer.visit(options.jvmVersion, access, "", null, "java/lang/Object", null)
+        writer.visit(options.version, access, options.getName(className), null, "java/lang/Object", null)
 
         val visitor = writer.visitMethod(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null)
         visitor.visitCode()

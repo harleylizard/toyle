@@ -6,5 +6,10 @@ enum class Keyword {
     CLASS
     ;
 
-    val asToken get() = KeywordToken(this)
+    val asToken get() = runtimeCache.computeIfAbsent(this) { KeywordToken(this) }
+
+    companion object {
+        private val runtimeCache = mutableMapOf<Keyword, KeywordToken>()
+
+    }
 }

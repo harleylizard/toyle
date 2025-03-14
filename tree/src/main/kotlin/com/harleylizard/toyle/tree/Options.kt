@@ -1,6 +1,9 @@
 package com.harleylizard.toyle.tree
 
-interface Options {
-    val jvmVersion: Int
+import com.harleylizard.toyle.tree.token.NameToken
 
+interface Options {
+    val version: Int
+
+    fun getName(token: NameToken): String
 }
