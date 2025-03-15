@@ -22,10 +22,27 @@ class TreeTest {
 
         val tokens = Tokens.tokensOf(listOf(
             Keyword.CLASS.asToken,
-            "Test".asToken
+            "Test".asToken,
+            Keyword.OPEN_BRACKET.asToken,
+
+            Keyword.FUNCTION.asToken,
+            "example".asToken,
+
+            Keyword.MINUS.asToken,
+            Keyword.RIGHT_ARROW.asToken,
+            Keyword.VOID.asToken,
+
+            Keyword.OPEN_BRACKET.asToken,
+            Keyword.CLOSE_BRACKET.asToken,
+
+            Keyword.CLOSE_BRACKET.asToken,
         ))
 
-        Class().asmify(tokens, writer, options)
+        val tree = WrappedTree.toyleClass
+        tree.consume(tokens)
+
+        tokens.identity()
+        tree.asmify(tokens, writer, options)
 
         if (!Files.isDirectory(buildPath)) {
             Files.createDirectories(buildPath)
@@ -34,8 +51,6 @@ class TreeTest {
     }
 
     class TestOptions : Options {
-
-
         override val version = Opcodes.V23
 
         override fun getName(token: NameToken) = token.asString
