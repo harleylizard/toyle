@@ -1,7 +1,11 @@
 
 class Example {
+    let pizza: int = 0
 
-    fn main -> void {
-
+    fn main {
     }
+
+    fn example: number {
+    }
+
 }

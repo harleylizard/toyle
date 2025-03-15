@@ -7,4 +7,6 @@ dependencies {
     api("org.ow2.asm:asm-util:9.7")
     api("org.ow2.asm:asm-tree:9.7")
     api("it.unimi.dsi:fastutil:8.5.15")
+
+    implementation(project(":jdk"))
 }

@@ -18,6 +18,7 @@ class WrappedTree<T : Tree> private constructor(private val tree: T) : Tree {
 
         val toyleClass = Class().asWrappedTree
         val toyleFunction = Function().asWrappedTree
+        val toyleVariable = Variable().asWrappedTree
 
     }
 }

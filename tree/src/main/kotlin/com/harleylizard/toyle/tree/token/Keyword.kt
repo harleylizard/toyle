@@ -11,11 +11,7 @@ enum class Keyword {
     CLOSE_BRACKET,
     OPEN_SQUARE_BRACKET,
     CLOSE_SQUARE_BRACKET,
-
-    LEFT_ARROW,
-    RIGHT_ARROW,
-    MINUS,
-    PLUS,
+    COLON,
 
     NUMBER,
     BYTE,
@@ -27,11 +23,12 @@ enum class Keyword {
     VOID,
     BOOLEAN
     ;
-
     val asToken get() = runtimeCache.computeIfAbsent(this) { KeywordToken(this) }
 
     companion object {
         private val runtimeCache = mutableMapOf<Keyword, KeywordToken>()
+
+        val numbers = listOf(BYTE, SHORT, INT, LONG, FLOAT, DOUBLE)
 
     }
 }

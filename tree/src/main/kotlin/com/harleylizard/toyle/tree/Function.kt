@@ -12,9 +12,8 @@ class Function : Tree {
         tokens.expect(Keyword.FUNCTION)
         tokens.expect(NameToken::class)
 
-        if (tokens.`is`(Keyword.MINUS)) {
+        if (tokens.`is`(Keyword.COLON)) {
             tokens.skip()
-            tokens.expect(Keyword.RIGHT_ARROW)
             tokens.anyOf(
                 Keyword.NUMBER,
                 Keyword.VOID,
@@ -36,20 +35,24 @@ class Function : Tree {
         val functionName = tokens.get<NameToken>()
         tokens.skip()
 
-        val returnType = "V"
-        if (tokens.`is`(Keyword.MINUS)) {
-            tokens.skip()
+        var returnType = listOf(TypeResult.resultOf(Keyword.VOID.asToken))
+        if (tokens.`is`(Keyword.COLON)) {
             tokens.skip()
 
+            returnType = options.getTypeResults(tokens.token)
             tokens.skip()
         }
 
-        val access = Opcodes.ACC_PUBLIC
-        val visitor = writer.visitMethod(access, options.getName(functionName), "()$returnType", null, null)
-
-        tokens.skip()
         tokens.skip()
 
-        visitor.visitEnd()
+        for (typeResult in returnType) {
+            val descriptor = options.getType(typeResult.token).descriptor
+
+            val access = Opcodes.ACC_PUBLIC
+            val visitor = writer.visitMethod(access, options.getName(functionName), "()$descriptor", null, null)
+
+            visitor.visitEnd()
+        }
+        tokens.skip()
     }
 }

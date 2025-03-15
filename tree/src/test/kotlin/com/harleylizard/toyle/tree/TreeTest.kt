@@ -1,12 +1,11 @@
 package com.harleylizard.toyle.tree
 
-import com.harleylizard.toyle.tree.token.Keyword
-import com.harleylizard.toyle.tree.token.NameToken
+import com.harleylizard.toyle.tree.token.*
 import com.harleylizard.toyle.tree.token.NameToken.Companion.asToken
-import com.harleylizard.toyle.tree.token.Tokens
 import org.junit.jupiter.api.Test
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
+import org.objectweb.asm.Type
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -16,7 +15,7 @@ class TreeTest {
 
     @Test
     fun test() {
-        val options = TestOptions()
+        val options = DefaultOptions()
 
         val writer = ClassWriter(ClassWriter.COMPUTE_MAXS or ClassWriter.COMPUTE_FRAMES)
 
@@ -28,9 +27,8 @@ class TreeTest {
             Keyword.FUNCTION.asToken,
             "example".asToken,
 
-            Keyword.MINUS.asToken,
-            Keyword.RIGHT_ARROW.asToken,
-            Keyword.VOID.asToken,
+            Keyword.COLON.asToken,
+            Keyword.NUMBER.asToken,
 
             Keyword.OPEN_BRACKET.asToken,
             Keyword.CLOSE_BRACKET.asToken,
@@ -50,16 +48,4 @@ class TreeTest {
         options.write(writer, buildPath.resolve("Test.class"))
     }
 
-    class TestOptions : Options {
-        override val version = Opcodes.V23
-
-        override fun getName(token: NameToken) = token.asString
-
-        override fun write(writer: ClassWriter, path: Path) {
-            Files.newOutputStream(path).use {
-                it.write(writer.toByteArray())
-                it.flush()
-            }
-        }
-    }
 }

@@ -1,6 +1,6 @@
 package com.harleylizard.toyle.tree.token
 
-class KeywordToken(private val keyword: Keyword) : Token {
+class KeywordToken(val keyword: Keyword) : Token {
     override val asString: String get() = throw UnsupportedOperationException()
 
     override fun equals(other: Any?): Boolean {
